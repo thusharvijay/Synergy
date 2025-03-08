@@ -6,7 +6,6 @@ import axios from "axios";
 const GEMINI_API_KEY = "AIzaSyCicfNY-lyhzY3H84Leax5j6deMdcVQVPo";
 const GEMINI_MODEL = "gemini-2.0-flash";
 
-// Predefined responses
 const predefinedResponses = {
   "What types of startups do you invest in?":
     "We focus on AI, fintech, blockchain, and emerging technologies, but we're open to disruptive ideas in other sectors.",
@@ -18,7 +17,6 @@ const predefinedResponses = {
 
 const fetchGeminiResponse = async (userInput: string) => {
   try {
-    // Enhanced prompt with instructions for brevity
     const enhancedPrompt = `
       You are FINOVA, a concise financial assistant chatbot. 
       Provide brief, direct answers in 1-2 sentences maximum.
@@ -29,7 +27,7 @@ const fetchGeminiResponse = async (userInput: string) => {
     const requestData = { 
       contents: [{ parts: [{ text: enhancedPrompt }] }],
       generationConfig: {
-        maxOutputTokens: 150 // Limit the response length
+        maxOutputTokens: 150
       }
     };
     
@@ -41,12 +39,11 @@ const fetchGeminiResponse = async (userInput: string) => {
     
     let aiResponse = response.data?.candidates?.[0]?.content?.parts?.[0]?.text || "I'm sorry, I couldn't generate a response.";
     
-    // Further processing for brevity
     aiResponse = aiResponse
       .replace(/\bAI\b|\bchatbot\b|\bmodel\b/g, "FINOVA")
-      .replace(/^(Hi|Hello|Greetings|Hey).*?\,\s*/i, "") // Remove greetings
-      .replace(/\s*As FINOVA,\s*/i, "") // Remove self-references
-      .replace(/\.(.*)/s, ".") // Keep only the first sentence if multiple
+      .replace(/^(Hi|Hello|Greetings|Hey).*?\,\s*/i, "")
+      .replace(/\s*As FINOVA,\s*/i, "")
+      .replace(/\.(.*)/s, ".")
       .trim();
       
     return aiResponse;
@@ -59,7 +56,7 @@ const fetchGeminiResponse = async (userInput: string) => {
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { text: "Hello! I'm FINOVA. How can I help you today?", isUser: false }, // Shortened initial message
+    { text: "Hello! I'm FINOVA. How can I help you today?", isUser: false },
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -82,7 +79,7 @@ const Chatbot = () => {
   return (
     <>
       <motion.button
-        className="fixed bottom-4 right-4 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600"
+        className="fixed bottom-4 right-4 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 z-50"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(true)}
@@ -96,9 +93,9 @@ const Chatbot = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="fixed bottom-20 right-4 w-96 bg-gray-900 rounded-lg shadow-xl"
+            className="fixed bottom-20 right-4 w-96 bg-gray-900 rounded-lg shadow-xl z-50"
           >
-            <div className="p-4 border-b border-gray-700 flex justify-between">
+            <div className="p-4 border-b border-gray-700 flex justify-between items-center">
               <h3 className="text-lg font-semibold text-white">FINOVA Assistant</h3>
               <button onClick={() => setIsOpen(false)} className="text-gray-400 hover:text-white">
                 <X className="h-5 w-5" />
@@ -106,10 +103,30 @@ const Chatbot = () => {
             </div>
             <div className="h-96 overflow-y-auto p-4 space-y-4">
               {messages.map((message, index) => (
-                <motion.div key={index} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className={`flex ${message.isUser ? "justify-end" : "justify-start"}`}>
-                  <div className={`max-w-[80%] p-3 rounded-lg ${message.isUser ? "bg-blue-500" : "bg-gray-800"} text-white`}>{message.text}</div>
+                <motion.div 
+                  key={index} 
+                  initial={{ opacity: 0, y: 10 }} 
+                  animate={{ opacity: 1, y: 0 }} 
+                  className={`flex ${message.isUser ? "justify-end" : "justify-start"}`}
+                >
+                  <div className={`max-w-[80%] p-3 rounded-lg ${message.isUser ? "bg-blue-500" : "bg-gray-800"} text-white`}>
+                    {message.text}
+                  </div>
                 </motion.div>
               ))}
+              {isLoading && (
+                <motion.div 
+                  initial={{ opacity: 0 }} 
+                  animate={{ opacity: 1 }} 
+                  className="flex justify-start"
+                >
+                  <div className="bg-gray-800 text-white p-3 rounded-lg flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" />
+                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce delay-100" />
+                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce delay-200" />
+                  </div>
+                </motion.div>
+              )}
             </div>
             <form onSubmit={handleSubmit} className="p-4 border-t border-gray-700">
               <div className="flex space-x-2">
