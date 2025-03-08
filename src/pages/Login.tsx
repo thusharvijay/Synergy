@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { Wallet, Mail, Key, Loader2, AlertCircle } from 'lucide-react';
+import emailjs from '@emailjs/browser';
+import { BrowserProvider } from 'ethers';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -10,6 +11,36 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
   const [showOtpInput, setShowOtpInput] = useState(false);
+  const [currentOTP, setCurrentOTP] = useState('');
+  const [walletAddress, setWalletAddress] = useState('');
+
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your actual public key
+  }, []);
+
+  const sendOTP = async (email: string, otp: string) => {
+    try {
+      const templateParams = {
+        to_email: email,
+        otp: otp,
+        // Add any other template variables you have in your EmailJS template
+      };
+
+      const response = await emailjs.send(
+        "YOUR_SERVICE_ID", // Replace with your EmailJS service ID
+        "YOUR_TEMPLATE_ID", // Replace with your EmailJS template ID
+        templateParams
+      );
+
+      if (response.status !== 200) {
+        throw new Error('Failed to send OTP email');
+      }
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      throw new Error('Failed to send OTP email. Please try again.');
+    }
+  };
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,11 +48,14 @@ const Login = () => {
     setError('');
     
     try {
-      // Simulate OTP send
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+      setCurrentOTP(generatedOTP);
+      
+      await sendOTP(email, generatedOTP);
       setShowOtpInput(true);
     } catch (err) {
-      setError('Failed to send OTP. Please try again.');
+      setError(err instanceof Error ? err.message : 'Failed to send OTP. Please try again.');
+      setShowOtpInput(false);
     } finally {
       setIsLoading(false);
     }
@@ -33,9 +67,11 @@ const Login = () => {
     setError('');
     
     try {
-      // Simulate OTP verification
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      navigate('/dashboard');
+      if (otp === currentOTP) {
+        navigate('/dashboard');
+      } else {
+        throw new Error('Invalid OTP');
+      }
     } catch (err) {
       setError('Invalid OTP. Please try again.');
     } finally {
@@ -44,13 +80,49 @@ const Login = () => {
   };
 
   const handleWalletLogin = async () => {
-    setError('Wallet connection will be implemented later');
+    setIsLoading(true);
+    setError('');
+
+    try {
+      // Check if MetaMask is installed
+      if (typeof window.ethereum === 'undefined') {
+        // Open MetaMask website in a new tab
+        window.open('https://metamask.io/download/', '_blank');
+        throw new Error('Please install MetaMask to continue. A new tab has been opened for you to download it.');
+      }
+
+      // Request account access
+      const provider = new BrowserProvider(window.ethereum);
+      
+      try {
+        const accounts = await provider.send("eth_requestAccounts", []);
+        
+        if (!accounts || accounts.length === 0) {
+          throw new Error('Please connect your wallet to continue.');
+        }
+
+        const address = accounts[0];
+        setWalletAddress(address);
+        
+        // Navigate to dashboard after successful connection
+        navigate('/dashboard');
+      } catch (err: any) {
+        // Handle user rejection
+        if (err.code === 4001) {
+          throw new Error('Please connect your wallet to continue.');
+        }
+        throw err;
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to connect wallet');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black px-4">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(14,165,233,0.1),transparent_50%)]" />
-      <div className="max-w-md w-full relative">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900 px-4">
+      <div className="max-w-md w-full">
         <div className="bg-gray-800/50 backdrop-blur-xl rounded-2xl shadow-xl border border-gray-700/50 p-8">
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-500/10 mb-4">
@@ -68,16 +140,20 @@ const Login = () => {
           )}
 
           <div className="space-y-6">
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+            <button
               onClick={handleWalletLogin}
               disabled={isLoading}
-              className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed text-white p-4 rounded-lg font-medium transition-all"
+              className="w-full flex items-center justify-center gap-3 bg-blue-500 hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-white p-4 rounded-lg font-medium transition-colors"
             >
-              <Wallet className="h-5 w-5" />
-              Connect Ethereum Wallet
-            </motion.button>
+              {isLoading ? (
+                <Loader2 className="h-5 w-5 animate-spin" />
+              ) : (
+                <>
+                  <Wallet className="h-5 w-5" />
+                  {typeof window.ethereum === 'undefined' ? 'Install MetaMask' : 'Connect Ethereum Wallet'}
+                </>
+              )}
+            </button>
 
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
@@ -107,9 +183,7 @@ const Login = () => {
                     />
                   </div>
                 </div>
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                <button
                   type="submit"
                   disabled={isLoading}
                   className="w-full flex items-center justify-center gap-2 bg-gray-700 hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed text-white p-4 rounded-lg font-medium transition-colors"
@@ -122,7 +196,7 @@ const Login = () => {
                       Send OTP
                     </>
                   )}
-                </motion.button>
+                </button>
               </form>
             ) : (
               <form onSubmit={handleOtpSubmit} className="space-y-4">
@@ -143,9 +217,7 @@ const Login = () => {
                     />
                   </div>
                 </div>
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                <button
                   type="submit"
                   disabled={isLoading}
                   className="w-full flex items-center justify-center gap-2 bg-gray-700 hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed text-white p-4 rounded-lg font-medium transition-colors"
@@ -158,7 +230,7 @@ const Login = () => {
                       Verify OTP
                     </>
                   )}
-                </motion.button>
+                </button>
               </form>
             )}
           </div>
