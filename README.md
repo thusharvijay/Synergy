@@ -10,8 +10,8 @@ The official template repository for Define 3.0
  Cover Image  If applicable
 
 ### Team Information
-- **Team Name**: < Synergy > 
-- **Track**: < AI in FinTech >
+- **Team Name**:  Synergy 
+- **Track**:  AI in FinTech 
 
 ### Team Members
 | Name | Role | GitHub | LinkedIn |
