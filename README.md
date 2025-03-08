@@ -6,7 +6,7 @@ The official template repository for Define 3.0
 
 
 
-# < FINOVA >
+#  FINOVA 
  Cover Image  If applicable
 
 ### Team Information
