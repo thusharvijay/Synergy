@@ -8,6 +8,7 @@ The official template repository for Define 3.0
 
 #  FINOVA 
  Cover Image  If applicable
+ (https://drive.google.com/file/d/1ozVW7CQ5mbO1S476RIqSYFH0G5tzBPok/view?usp=sharing)
 
 ### Team Information
 - **Team Name**:  Synergy 
