@@ -6,20 +6,20 @@ The official template repository for Define 3.0
 
 
 
-# < Project Name >
+# < FINOVA >
  Cover Image  If applicable
 
 ### Team Information
 - **Team Name**: < Synergy > 
-- **Track**: < Track >
+- **Track**: < AI in FinTech >
 
 ### Team Members
 | Name | Role | GitHub | LinkedIn |
 |------|------|--------|----------|
-| [Full Name] | [Role] | [@username](https://github.com/username) | [Profile](https://linkedin.com/in/username) |
-| [Full Name] | [Role] | [@username](https://github.com/username) | [Profile](https://linkedin.com/in/username) |
-| [Full Name] | [Role] | [@username](https://github.com/username) | [Profile](https://linkedin.com/in/username) |
-| [Full Name] | [Role] | [@username](https://github.com/username) | [Profile](https://linkedin.com/in/username) |
+| Adrija A | Frontend/Backend Developer | adrija-ani(https://github.com/adrija-ani) | Adrija A(https://linkedin.com/in/adrija-ani) |
+| Adithyan S Pillai | Backend/AI Developer | XXOriginalXX(https://github.com/XXOriginalXX) | Adithyan S Pillai(https://linkedin.com/in/xxoriginalxx) |
+| Thushar Vijay | Blockchain/AI Developer | thusharvijay(https://github.com/thusharvijay) | Thushar Vijay(https://linkedin.com/in/thusharvijay) |
+| S V Dhanya | Frontend/Blockchain | Ayna184(https://github.com/Ayna184) | Dhanya Vinod(https://linkedin.com/in/dhanya-vinod) |
 
 ## Project Details
 
