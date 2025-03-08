@@ -27,7 +27,7 @@ The official template repository for Define 3.0
 _A concise summary of your project (2-3 sentences)_
 
 ### Problem Statement
-_Describe the problem your project aims to solve_
+Develop a basic prototype of a fintech website with an AI-powered chatbot that provides users with financial insights and customer support. The website should have a clean, user-friendly interface with a simple dashboard displaying sample financial data and a chatbot capable of handling basic FAQs related to fintech services. 
 
 ### Solution
 _Explain your approach to solving the problem_
