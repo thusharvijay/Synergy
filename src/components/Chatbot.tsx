@@ -16,7 +16,7 @@ const predefinedResponses = {
     "You can apply through our website by filling out the application form. Our team will review your proposal and get in touch.",
 };
 
-const fetchGeminiResponse = async (userInput) => {
+const fetchGeminiResponse = async (userInput: string) => {
   try {
     // Enhanced prompt with instructions for brevity
     const enhancedPrompt = `
@@ -64,7 +64,7 @@ const Chatbot = () => {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
 
@@ -99,7 +99,7 @@ const Chatbot = () => {
             className="fixed bottom-20 right-4 w-96 bg-gray-900 rounded-lg shadow-xl"
           >
             <div className="p-4 border-b border-gray-700 flex justify-between">
-              <h3 className="text-lg font-semibold">FINOVA Assistant</h3>
+              <h3 className="text-lg font-semibold text-white">FINOVA Assistant</h3>
               <button onClick={() => setIsOpen(false)} className="text-gray-400 hover:text-white">
                 <X className="h-5 w-5" />
               </button>
@@ -107,14 +107,27 @@ const Chatbot = () => {
             <div className="h-96 overflow-y-auto p-4 space-y-4">
               {messages.map((message, index) => (
                 <motion.div key={index} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className={`flex ${message.isUser ? "justify-end" : "justify-start"}`}>
-                  <div className={`max-w-[80%] p-3 rounded-lg ${message.isUser ? "bg-blue-500" : "bg-gray-800"}`}>{message.text}</div>
+                  <div className={`max-w-[80%] p-3 rounded-lg ${message.isUser ? "bg-blue-500" : "bg-gray-800"} text-white`}>{message.text}</div>
                 </motion.div>
               ))}
             </div>
             <form onSubmit={handleSubmit} className="p-4 border-t border-gray-700">
               <div className="flex space-x-2">
-                <input type="text" value={input} onChange={(e) => setInput(e.target.value)} placeholder="Type your message..." disabled={isLoading} className="flex-1 bg-gray-800 text-white rounded-lg px-4 py-2" />
-                <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} type="submit" disabled={isLoading} className="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600">
+                <input 
+                  type="text" 
+                  value={input} 
+                  onChange={(e) => setInput(e.target.value)} 
+                  placeholder="Type your message..." 
+                  disabled={isLoading} 
+                  className="flex-1 bg-gray-800 text-white rounded-lg px-4 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                />
+                <motion.button 
+                  whileHover={{ scale: 1.05 }} 
+                  whileTap={{ scale: 0.95 }} 
+                  type="submit" 
+                  disabled={isLoading} 
+                  className="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 disabled:opacity-50"
+                >
                   <Send className="h-5 w-5" />
                 </motion.button>
               </div>

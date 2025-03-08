@@ -1,22 +1,27 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
+import Login from './pages/Login';
 import Chatbot from './components/Chatbot';
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-primary-900">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Routes>
-        <Chatbot />
-      </div>
-    </Router>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <div className="min-h-screen bg-black">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+          <Chatbot />
+        </div>
+      </Router>
+    </QueryClientProvider>
   );
 }
 
