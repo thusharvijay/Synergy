@@ -37,20 +37,20 @@ _Explain your approach to solving the problem_
 _Replace VIDEO_ID with your YouTube video ID or provide an alternative demo link_
 
 ### Live Project
-[Project Name](https://your-project-url.com)
+FINOVA(https://your-project-url.com)
 
 ## Technical Implementation
 
 ### Technologies Used
-- **Frontend**: [Technologies]
-- **Backend**: [Technologies]
+- **Frontend**: React/HTML/CSS
+- **Backend**: Flask
 - **Database**: [Technologies]
 - **APIs**: [Technologies]
 - **DevOps**: [Technologies]
 - **Other Tools**: [Technologies]
 
 ### Key Features
-- Feature 1
+- AI Integrated Chatbot
 - Feature 2
 - Feature 3
 
