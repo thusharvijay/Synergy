@@ -4,6 +4,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
+import ContactUs from './components/ContactUs';
+import NewsPage from './pages/NewsPage';
 import Chatbot from './components/Chatbot';
 import TutorialOverlay from './components/TutorialOverlay';
 
@@ -23,6 +25,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/contact" element={<ContactUs />} />
+            <Route path="/news" element={<NewsPage />} />
           </Routes>
           <Chatbot />
         </div>
