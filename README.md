@@ -83,7 +83,7 @@ FINOVA(https://your-project-url.com)
 ### Prerequisites
 - Node.js (v16+ recommended) - [Download Here](https://nodejs.org/en)
 - npm (Comes with Node.js) or yarn
-- Git - [DDownload Here](https://git-scm.com/)
+- Git - [Download Here](https://git-scm.com/)
 
 ### Installation 
 - Clone the Repository
