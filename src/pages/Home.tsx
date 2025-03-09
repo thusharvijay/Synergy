@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Shield, ArrowRight, TrendingUp, MessageCircle, Newspaper, Users, Upload, Receipt, CreditCard } from 'lucide-react';
+import { Shield, ArrowRight, TrendingUp, MessageCircle, Newspaper, Users, Upload, Receipt, CreditCard, Wallet, Lock, BookOpen, LineChart } from 'lucide-react';
 import HolographicCube from '../components/HolographicCube';
 
 const Home = () => {
@@ -14,35 +14,35 @@ const Home = () => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        // You would replace this with your actual API call
-        // Example using a placeholder API
-        const response = await fetch('https://api.example.com/financial-news');
+        const response = await fetch('https://api.coingecko.com/api/v3/news');
         const data = await response.json();
-        setNews(data.articles?.slice(0, 3) || []);
+        setNews(data?.slice(0, 3) || []);
       } catch (error) {
         console.error('Error fetching news:', error);
-        // Fallback news in case API fails
         setNews([
           {
             id: 1,
-            title: 'Federal Reserve Announces New Interest Rate Policy',
-            source: 'Financial Times',
+            title: 'Bitcoin Reaches New All-Time High',
+            source: 'CryptoNews',
             date: 'March 8, 2025',
-            url: '#'
+            url: 'https://www.cryptonews.com/news/bitcoin-new-high',
+            imageUrl: 'https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=500&q=80'
           },
           {
             id: 2,
-            title: 'Tech Stocks Rally as Quantum Computing Breakthrough Announced',
-            source: 'Bloomberg',
+            title: 'Ethereum 2.0 Update Successfully Implemented',
+            source: 'CoinDesk',
             date: 'March 7, 2025',
-            url: '#'
+            url: 'https://www.coindesk.com/ethereum-update',
+            imageUrl: 'https://images.unsplash.com/photo-1622630998477-20aa696ecb05?w=500&q=80'
           },
           {
             id: 3,
-            title: 'Global Markets Respond to New Trade Agreement',
-            source: 'CNBC',
+            title: 'DeFi Market Cap Surpasses $100 Billion',
+            source: 'CryptoDaily',
             date: 'March 6, 2025',
-            url: '#'
+            url: 'https://www.cryptodaily.com/defi-milestone',
+            imageUrl: 'https://images.unsplash.com/photo-1605792657660-596af9009e82?w=500&q=80'
           }
         ]);
       } finally {
@@ -53,11 +53,11 @@ const Home = () => {
     fetchNews();
   }, []);
 
-  const redirectToUpstocks = () => {
-    window.open('https://upstocks.com/account/demat', '_blank');
+  const redirectToBinance = () => {
+    window.open('https://accounts.binance.com/register', '_blank');
   };
 
-  // New function to handle expense tracker modal
+  // Function to handle expense tracker modal
   const toggleExpenseModal = () => {
     setShowExpenseModal(!showExpenseModal);
   };
@@ -101,7 +101,7 @@ const Home = () => {
                 Login
               </button>
               <button
-                onClick={() => navigate('/login')}
+                onClick={() => navigate('/dashboard')}
                 className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors"
               >
                 Launch App
@@ -128,7 +128,7 @@ const Home = () => {
                 transition={{ delay: 0.2 }}
               >
                 <span className="w-2 h-2 rounded-full bg-blue-400 mr-2 animate-pulse"></span>
-                Next Generation Financial Assistant
+                Next Generation Crypto Trading Platform
               </motion.div>
               
               <motion.h1 
@@ -137,9 +137,9 @@ const Home = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3 }}
               >
-                The Future of{" "}
+                Your Gateway to{" "}
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600">
-                  Decentralized Finance
+                  Cryptocurrency
                 </span>
               </motion.h1>
               
@@ -149,7 +149,7 @@ const Home = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
               >
-                Secure, transparent, and efficient financial services powered by quantum-resistant blockchain technology
+                Start your crypto journey with our comprehensive platform. Learn, trade, and grow your digital assets securely.
               </motion.p>
               
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
@@ -160,7 +160,7 @@ const Home = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7 }}
-                  onClick={() => navigate('/login')}
+                  onClick={() => navigate('/dashboard')}
                 >
                   <span className="flex items-center justify-center text-lg font-semibold">
                     Get Started <ArrowRight className="ml-2 h-5 w-5" />
@@ -178,7 +178,7 @@ const Home = () => {
                 >
                   <span className="flex items-center justify-center text-lg font-semibold">
                     <Receipt className="mr-2 h-5 w-5" />
-                    Expense Tracker
+                    Track Portfolio
                   </span>
                 </motion.button>
               </div>
@@ -206,9 +206,9 @@ const Home = () => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
           >
-            <h3 className="text-2xl font-bold text-white mb-4">Expense Tracker</h3>
+            <h3 className="text-2xl font-bold text-white mb-4">Portfolio Tracker</h3>
             <p className="text-gray-300 mb-6">
-              Track your expenses easily and manage your finances. All payments made through FINOVA will be automatically recorded in your expense tracker.
+              Track your crypto portfolio easily and manage your investments. All trades made through FINOVA will be automatically recorded in your portfolio.
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -217,8 +217,8 @@ const Home = () => {
                 className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white p-4 rounded-xl hover:shadow-lg hover:shadow-blue-500/20 transition-all"
               >
                 <Upload className="h-8 w-8 mb-2 mx-auto" />
-                <h4 className="text-lg font-semibold mb-1">Upload Bill</h4>
-                <p className="text-sm text-gray-200">Scan your receipt or upload a photo of your bill</p>
+                <h4 className="text-lg font-semibold mb-1">Import Trades</h4>
+                <p className="text-sm text-gray-200">Import your trading history from other platforms</p>
               </button>
               
               <button
@@ -227,17 +227,17 @@ const Home = () => {
               >
                 <Receipt className="h-8 w-8 mb-2 mx-auto" />
                 <h4 className="text-lg font-semibold mb-1">Manual Entry</h4>
-                <p className="text-sm text-gray-200">Manually input your expense details</p>
+                <p className="text-sm text-gray-200">Manually input your trades and holdings</p>
               </button>
             </div>
             
             <div className="border-t border-gray-700 pt-4">
               <div className="flex items-center text-cyan-400 mb-4">
                 <CreditCard className="h-5 w-5 mr-2" />
-                <span className="font-medium">FINOVA Payments Integration</span>
+                <span className="font-medium">FINOVA Trading Integration</span>
               </div>
               <p className="text-gray-400 text-sm">
-                All payments made through FINOVA will be automatically recorded in your expense tracker, saving you time and ensuring accurate financial records.
+                All trades made through FINOVA will be automatically recorded in your portfolio tracker, providing real-time updates and performance analytics.
               </p>
             </div>
             
@@ -264,17 +264,16 @@ const Home = () => {
           >
             <div className="inline-flex items-center mb-4 px-4 py-2 rounded-full bg-cyan-900/30 text-cyan-400 text-lg border border-cyan-800">
               <Newspaper className="mr-2 h-5 w-5" />
-              Financial Market Updates
+              Crypto Market Updates
             </div>
-            <h2 className="text-4xl font-bold text-white mb-4">Latest Financial News</h2>
+            <h2 className="text-4xl font-bold text-white mb-4">Latest Crypto News</h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Stay informed with the most recent updates and trends in the financial markets
+              Stay informed with the most recent updates and trends in the cryptocurrency market
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {loading ? (
-              // Loading skeleton
               Array(3).fill().map((_, i) => (
                 <div key={i} className="bg-gray-800/50 animate-pulse rounded-xl overflow-hidden">
                   <div className="h-48 bg-gray-700/50"></div>
@@ -286,7 +285,6 @@ const Home = () => {
                 </div>
               ))
             ) : (
-              // News cards
               news.map((item) => (
                 <motion.div
                   key={item.id}
@@ -298,8 +296,8 @@ const Home = () => {
                 >
                   <div className="h-48 bg-gray-700/50 relative overflow-hidden">
                     <img 
-                      src={`/api/placeholder/500/300?text=Financial+News`} 
-                      alt="News thumbnail" 
+                      src={item.imageUrl} 
+                      alt={item.title}
                       className="w-full h-full object-cover transition-transform hover:scale-105"
                     />
                   </div>
@@ -332,13 +330,13 @@ const Home = () => {
               className="border border-cyan-500 text-cyan-400 px-6 py-3 rounded-xl hover:bg-cyan-950/30"
               onClick={() => navigate('/news')}
             >
-              View All Financial News
+              View All Crypto News
             </motion.button>
           </div>
         </div>
       </div>
 
-      {/* Trading Section */}
+      {/* Crypto Account Creation Section */}
       <div className="relative bg-gray-900 py-24">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(56,189,248,0.1),transparent_50%)]" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -349,18 +347,18 @@ const Home = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold text-white mb-4">Ready to Start Trading?</h2>
+            <h2 className="text-4xl font-bold text-white mb-4">Start Your Crypto Journey</h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Begin your investment journey today with our partner Upstocks. Create a demat account in minutes and access a world of financial opportunities.
+              Begin your cryptocurrency investment journey with our comprehensive guide. Learn how to create and secure your crypto wallet, understand the basics, and start trading safely.
             </p>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="mt-8 bg-gradient-to-r from-blue-600 to-green-500 text-white px-8 py-4 rounded-xl"
-              onClick={redirectToUpstocks}
+              onClick={redirectToBinance}
             >
               <span className="flex items-center justify-center text-lg font-semibold">
-                Create Demat Account <TrendingUp className="ml-2 h-5 w-5" />
+                Create Crypto Account <Wallet className="ml-2 h-5 w-5" />
               </span>
             </motion.button>
           </motion.div>
@@ -372,27 +370,27 @@ const Home = () => {
             viewport={{ once: true }}
             className="bg-gray-800/50 border border-gray-700 rounded-2xl p-8"
           >
-            <h3 className="text-2xl font-bold text-white mb-6">How to Create a Demat Account</h3>
+            <h3 className="text-2xl font-bold text-white mb-6">Getting Started with Cryptocurrency</h3>
             
             <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-6">
                 <div className="bg-gray-800/70 p-6 rounded-xl">
                   <div className="flex items-center mb-3">
                     <div className="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold mr-3">1</div>
-                    <h4 className="text-xl font-semibold text-white">Complete KYC Verification</h4>
+                    <h4 className="text-xl font-semibold text-white">Learn the Basics</h4>
                   </div>
                   <p className="text-gray-300">
-                    Prepare your identity and address proof documents (Aadhar, PAN, etc.). The KYC process is completely online and takes just a few minutes to complete.
+                    Start with our comprehensive guide to understand cryptocurrency fundamentals, blockchain technology, and different types of digital assets.
                   </p>
                 </div>
 
                 <div className="bg-gray-800/70 p-6 rounded-xl">
                   <div className="flex items-center mb-3">
                     <div className="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold mr-3">2</div>
-                    <h4 className="text-xl font-semibold text-white">Sign Digital Agreement</h4>
+                    <h4 className="text-xl font-semibold text-white">Choose a Secure Wallet</h4>
                   </div>
                   <p className="text-gray-300">
-                    After KYC verification, you'll need to sign the digital account opening form and agreement. This can be done with a digital signature or OTP.
+                    Learn about different types of crypto wallets (hardware, software) and choose the one that best suits your needs. Security is paramount in crypto.
                   </p>
                 </div>
               </div>
@@ -401,36 +399,62 @@ const Home = () => {
                 <div className="bg-gray-800/70 p-6 rounded-xl">
                   <div className="flex items-center mb-3">
                     <div className="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold mr-3">3</div>
-                    <h4 className="text-xl font-semibold text-white">Fund Your Account</h4>
+                    <h4 className="text-xl font-semibold text-white">Verify Your Identity</h4>
                   </div>
                   <p className="text-gray-300">
-                    Once your account is created, you can add funds through UPI, NEFT, RTGS, or net banking. The minimum investment amount varies based on your chosen plan.
+                    Complete the KYC (Know Your Customer) process by providing valid identification documents. This is required for legal compliance and account security.
                   </p>
                 </div>
 
                 <div className="bg-gray-800/70 p-6 rounded-xl">
                   <div className="flex items-center mb-3">
                     <div className="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold mr-3">4</div>
-                    <h4 className="text-xl font-semibold text-white">Start Investing</h4>
+                    <h4 className="text-xl font-semibold text-white">Start Trading</h4>
                   </div>
                   <p className="text-gray-300">
-                    After funding, you can immediately start investing in stocks, mutual funds, bonds, and other financial instruments through your new demat account.
+                    Begin with small investments to understand the market. Use our educational resources and real-time market data to make informed trading decisions.
                   </p>
                 </div>
+              </div>
+            </div>
+
+            <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-blue-900/20 p-6 rounded-xl border border-blue-800/50">
+                <Lock className="h-8 w-8 text-blue-400 mb-4" />
+                <h4 className="text-lg font-semibold text-white mb-2">Security First</h4>
+                <p className="text-gray-300 text-sm">
+                  Learn about two-factor authentication, secure password practices, and safe storage of your crypto assets.
+                </p>
+              </div>
+              
+              <div className="bg-purple-900/20 p-6 rounded-xl border border-purple-800/50">
+                <BookOpen className="h-8 w-8 text-purple-400 mb-4" />
+                <h4 className="text-lg font-semibold text-white mb-2">Educational Resources</h4>
+                <p className="text-gray-300 text-sm">
+                  Access our library of tutorials, guides, and market analysis to enhance your trading knowledge.
+                </p>
+              </div>
+              
+              <div className="bg-green-900/20 p-6 rounded-xl border border-green-800/50">
+                <LineChart className="h-8 w-8 text-green-400 mb-4" />
+                <h4 className="text-lg font-semibold text-white mb-2">Market Analysis</h4>
+                <p className="text-gray-300 text-sm">
+                  Learn to read charts, understand market indicators, and analyze trends for better trading decisions.
+                </p>
               </div>
             </div>
 
             <div className="mt-10 text-center">
               <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-900/30 text-blue-400 text-lg border border-blue-800">
                 <MessageCircle className="mr-2 h-5 w-5" />
-                Have questions? Our AI chatbot can answer all your demat account queries.
+                Have questions? Our AI chatbot can help you understand cryptocurrency basics.
               </div>
             </div>
           </motion.div>
         </div>
       </div>
 
-      {/* Footer with Contact Us link */}
+      {/* Footer */}
       <footer className="bg-gray-900/70 border-t border-gray-800 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
@@ -446,7 +470,7 @@ const Home = () => {
                 Home
               </button>
               <button 
-                onClick={() => navigate('/login')}
+                onClick={() => navigate('/dashboard')}
                 className="text-gray-400 hover:text-white transition-colors"
               >
                 Dashboard
@@ -455,7 +479,7 @@ const Home = () => {
                 onClick={() => navigate('/news')}
                 className="text-gray-400 hover:text-white transition-colors"
               >
-                Financial News
+                Crypto News
               </button>
               <button 
                 onClick={() => navigate('/contact')}
