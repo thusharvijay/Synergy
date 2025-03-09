@@ -101,7 +101,7 @@ const Home = () => {
                 Login
               </button>
               <button
-                onClick={() => navigate('/dashboard')}
+                onClick={() => navigate('/login')}
                 className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors"
               >
                 Launch App
@@ -160,7 +160,7 @@ const Home = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7 }}
-                  onClick={() => navigate('/dashboard')}
+                  onClick={() => navigate('/login')}
                 >
                   <span className="flex items-center justify-center text-lg font-semibold">
                     Get Started <ArrowRight className="ml-2 h-5 w-5" />
@@ -446,7 +446,7 @@ const Home = () => {
                 Home
               </button>
               <button 
-                onClick={() => navigate('/dashboard')}
+                onClick={() => navigate('/login')}
                 className="text-gray-400 hover:text-white transition-colors"
               >
                 Dashboard
