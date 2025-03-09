@@ -55,8 +55,8 @@ Crypto Based Fintech Website with AI-Powered Chatbot
   - Alerts users when they exceed their budget and offers AI-driven financial insights to help manage money efficiently.
 
 ### Demo
-[![Project Demo](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)
-_Replace VIDEO_ID with your YouTube video ID or provide an alternative demo link_
+[![Project Demo]()](https://youtu.be/awoFzI-43gc)
+
 
 ### Live Project
 [FINOVA- Click Here](https://synergy-finova-v2.vercel.app/)
