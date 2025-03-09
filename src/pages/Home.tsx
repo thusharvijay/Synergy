@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Shield, ArrowRight, TrendingUp, MessageCircle, Newspaper, Users, Upload, Receipt, CreditCard, Wallet, Lock, BookOpen, LineChart } from 'lucide-react';
+import { Shield, ArrowRight, TrendingUp, MessageCircle, Newspaper, Users, Upload, Receipt, CreditCard, Wallet, Lock, BookOpen, LineChart, ChevronDown, ChevronUp, HelpCircle } from 'lucide-react';
 import HolographicCube from '../components/HolographicCube';
 
 const Home = () => {
@@ -9,6 +9,7 @@ const Home = () => {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showExpenseModal, setShowExpenseModal] = useState(false);
+  const [openFaqIndex, setOpenFaqIndex] = useState(null);
 
   // Fetch financial news
   useEffect(() => {
@@ -53,26 +54,56 @@ const Home = () => {
     fetchNews();
   }, []);
 
-  const redirectToBinance = () => {
-    window.open('https://accounts.binance.com/register', '_blank');
+  const redirectToMetamask = () => {
+    window.open('https://metamask.io/download/', '_blank');
   };
 
-  // Function to handle expense tracker modal
   const toggleExpenseModal = () => {
     setShowExpenseModal(!showExpenseModal);
   };
 
-  // Function to navigate to manual expense entry
   const goToManualExpenseEntry = () => {
     navigate('/expenses/manual');
     setShowExpenseModal(false);
   };
 
-  // Function to handle bill upload
   const handleBillUpload = () => {
     navigate('/expenses/upload');
     setShowExpenseModal(false);
   };
+
+  const toggleFaq = (index) => {
+    setOpenFaqIndex(openFaqIndex === index ? null : index);
+  };
+
+  const faqItems = [
+    {
+      category: "About FINOVA",
+      questions: [
+        {
+          question: "What is FINOVA?",
+          answer: "FINOVA is a next-generation cryptocurrency platform that combines decentralized finance with advanced blockchain technology. We offer secure, transparent, and efficient crypto trading services including portfolio tracking, investment opportunities, and crypto news updates."
+        },
+        {
+          question: "How does FINOVA ensure security?",
+          answer: "FINOVA utilizes advanced blockchain technology to secure all transactions and personal data. Our platform employs end-to-end encryption, multi-factor authentication, and regular security audits to ensure your crypto assets remain protected."
+        }
+      ]
+    },
+    {
+      category: "Cryptocurrency",
+      questions: [
+        {
+          question: "How can I start trading cryptocurrency?",
+          answer: "To start trading cryptocurrency on FINOVA, create an account, complete verification, connect your wallet (like MetaMask), and you can begin trading various cryptocurrencies. We provide educational resources to help you make informed trading decisions."
+        },
+        {
+          question: "What cryptocurrencies can I trade?",
+          answer: "FINOVA supports a wide range of cryptocurrencies including Bitcoin, Ethereum, and other major altcoins. The list of supported cryptocurrencies is regularly updated based on market trends and user demand."
+        }
+      ]
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-black overflow-hidden">
@@ -101,7 +132,7 @@ const Home = () => {
                 Login
               </button>
               <button
-                onClick={() => navigate('/dashboard')}
+                onClick={() => navigate('/login')}
                 className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors"
               >
                 Launch App
@@ -160,7 +191,7 @@ const Home = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7 }}
-                  onClick={() => navigate('/dashboard')}
+                  onClick={() => navigate('/login')}
                 >
                   <span className="flex items-center justify-center text-lg font-semibold">
                     Get Started <ArrowRight className="ml-2 h-5 w-5" />
@@ -196,7 +227,7 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Expense Tracker Modal */}
+      {/* Portfolio Modal */}
       {showExpenseModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={toggleExpenseModal}></div>
@@ -206,7 +237,7 @@ const Home = () => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
           >
-            <h3 className="text-2xl font-bold text-white mb-4">Expense Tracker</h3>
+            <h3 className="text-2xl font-bold text-white mb-4">Portfolio Tracker</h3>
             <p className="text-gray-300 mb-6">
               Track your crypto portfolio easily and manage your investments. All trades made through FINOVA will be automatically recorded in your portfolio.
             </p>
@@ -218,7 +249,7 @@ const Home = () => {
               >
                 <Upload className="h-8 w-8 mb-2 mx-auto" />
                 <h4 className="text-lg font-semibold mb-1">Import Trades</h4>
-                <p className="text-sm text-gray-200">Import your trading history from other platforms</p>
+                <p className="text-sm text-gray-200">Import your trading history</p>
               </button>
               
               <button
@@ -227,7 +258,7 @@ const Home = () => {
               >
                 <Receipt className="h-8 w-8 mb-2 mx-auto" />
                 <h4 className="text-lg font-semibold mb-1">Manual Entry</h4>
-                <p className="text-sm text-gray-200">Manually input your trades and holdings</p>
+                <p className="text-sm text-gray-200">Manually input your trades</p>
               </button>
             </div>
             
@@ -251,7 +282,7 @@ const Home = () => {
         </div>
       )}
 
-      {/* Financial News Section */}
+      {/* News Section */}
       <div className="relative bg-gray-900/80 py-20">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(6,182,212,0.1),transparent_70%)]" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -336,7 +367,7 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Crypto Account Creation Section */}
+      {/* Crypto Account Section */}
       <div className="relative bg-gray-900 py-24">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(56,189,248,0.1),transparent_50%)]" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -351,16 +382,6 @@ const Home = () => {
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Begin your cryptocurrency investment journey with our comprehensive guide. Learn how to create and secure your crypto wallet, understand the basics, and start trading safely.
             </p>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="mt-8 bg-gradient-to-r from-blue-600 to-green-500 text-white px-8 py-4 rounded-xl"
-              onClick={redirectToBinance}
-            >
-              <span className="flex items-center justify-center text-lg font-semibold">
-                Create Crypto Account <Wallet className="ml-2 h-5 w-5" />
-              </span>
-            </motion.button>
           </motion.div>
 
           <motion.div
@@ -445,12 +466,92 @@ const Home = () => {
             </div>
 
             <div className="mt-10 text-center">
-              <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-900/30 text-blue-400 text-lg border border-blue-800">
-                <MessageCircle className="mr-2 h-5 w-5" />
-                Have questions? Our AI chatbot can help you understand cryptocurrency basics.
-              </div>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-gradient-to-r from-blue-600 to-green-500 text-white px-8 py-4 rounded-xl"
+                onClick={redirectToMetamask}
+              >
+                <span className="flex items-center justify-center text-lg font-semibold">
+                  Create Crypto Account <Wallet className="ml-2 h-5 w-5" />
+                </span>
+              </motion.button>
             </div>
           </motion.div>
+        </div>
+      </div>
+
+      {/* FAQ Section */}
+      <div className="relative bg-gray-900 py-24">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(6,182,212,0.1),transparent_70%)]" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <div className="inline-flex items-center mb-4 px-4 py-2 rounded-full bg-purple-900/30 text-purple-400 text-lg border border-purple-800">
+              <HelpCircle className="mr-2 h-5 w-5" />
+              Frequently Asked Questions
+            </div>
+            <h2 className="text-4xl font-bold text-white mb-4">Common Questions</h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Everything you need to know about FINOVA and cryptocurrency
+            </p>
+          </motion.div>
+
+          <div className="space-y-12">
+            {faqItems.map((category, categoryIndex) => (
+              <motion.div
+                key={categoryIndex}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
+                viewport={{ once: true }}
+                className="bg-gray-800/30 backdrop-blur-sm rounded-xl border border-gray-700 overflow-hidden"
+              >
+                <div className="p-6 border-b border-gray-700">
+                  <h3 className="text-2xl font-bold text-white">{category.category}</h3>
+                </div>
+                <div className="divide-y divide-gray-700">
+                  {category.questions.map((faq, faqIndex) => {
+                    const globalIndex = categoryIndex * 100 + faqIndex;
+                    const isOpen = openFaqIndex === globalIndex;
+                    
+                    return (
+                      <div key={faqIndex} className="p-6">
+                        <button
+                          className="w-full flex justify-between items-center text-left"
+                          onClick={() => toggleFaq(globalIndex)}
+                        >
+                          <h4 className="text-lg font-semibold text-white">{faq.question}</h4>
+                          {isOpen ? (
+                            <ChevronUp className="h-5 w-5 text-blue-400 flex-shrink-0" />
+                          ) : (
+                            <ChevronDown className="h-5 w-5 text-blue-400 flex-shrink-0" />
+                          )}
+                        </button>
+                        
+                        {isOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="mt-4 text-gray-300"
+                          >
+                            <p>{faq.answer}</p>
+                          </motion.div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -470,7 +571,7 @@ const Home = () => {
                 Home
               </button>
               <button 
-                onClick={() => navigate('/dashboard')}
+                onClick={() => navigate('/login')}
                 className="text-gray-400 hover:text-white transition-colors"
               >
                 Dashboard
