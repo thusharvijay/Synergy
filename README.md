@@ -59,7 +59,7 @@ Crypto Based Fintech Website with AI-Powered Chatbot
 _Replace VIDEO_ID with your YouTube video ID or provide an alternative demo link_
 
 ### Live Project
-FINOVA([](https://synergy-finova-v2.vercel.app/))
+[FINOVA- Click Here](https://synergy-finova-v2.vercel.app/)
 
 ## Technical Implementation
 
