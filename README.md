@@ -199,18 +199,17 @@ By focusing on **AI, blockchain, security, and user experience**, we aim to make
 ---
 
 ### References (if any)
-- [Reference 1](link)
-- [Reference 2](link)
+
 
 ---
 
 ### Submission Checklist
-- [ ✅ ] Completed all sections of this README
-- [  ] Added project demo video
-- [  ] Provided live project link
-- [ ✅ ] Ensured all team members are listed
-- [ ✅ ] Included setup instructions
-- [ ] Submitted final code to repository
+- ✅ Completed all sections of this README
+- ✅ Added project demo video
+- ✅ Provided live project link
+- ✅ Ensured all team members are listed
+- ✅ Included setup instructions
+- ✅ Submitted final code to repository
 
 ---
 
