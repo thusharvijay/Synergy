@@ -25,13 +25,34 @@ The official template repository for Define 3.0
 ## Project Details
 
 ### Overview
-_A concise summary of your project (2-3 sentences)_
+Our project is an educational fintech platform designed to help users learn about financial markets through live demo trading. It features an expense tracker for financial management, Ethereum wallet integration for handling transactions, and an interactive design to enhance user engagement. The platform provides real-time market data, transaction details, and tools for hands-on financial learning.
 
 ### Problem Statement
 Develop a basic prototype of a fintech website with an AI-powered chatbot that provides users with financial insights and customer support. The website should have a clean, user-friendly interface with a simple dashboard displaying sample financial data and a chatbot capable of handling basic FAQs related to fintech services. 
 
 ### Solution
-_Explain your approach to solving the problem_
+Crypto Based Fintech Website with AI-Powered Chatbot
+- AI-Powered Chatbot for Financial Insights & Support
+  - Provides instant responses to financial FAQs related to trading, investments, and personal finance.
+  - Uses AI-driven insights to analyze financial data and offer personalized recommendations.
+  - Simulates financial scenarios to help users understand trading strategies and decision-making.
+- User-Friendly Dashboard
+  - Features a clean and intuitive 3D-designed UI for an engaging experience.
+  - Displays real-time and historical financial data, including market trends, portfolio insights, and transaction history.
+  - Uses lightweight charts for easy data visualization.
+- Live Demo Trading in the Live Market
+  - Offers a risk-free trading environment through paper trading with virtual funds.
+  - Integrates live crypto and stock market APIs (e.g., CoinGecko) for real-time price tracking.
+  - Enables simulated buy/sell transactions to help users practice and improve trading skills.
+- Ethereum Wallet Integration
+  - Allows users to connect an Ethereum wallet and view balances, transaction history, and holdings.
+  - Uses secure authentication, including Zero-Knowledge Proof (ZKP) login, ensuring privacy and security.
+  - Enables on-chain transaction simulation, allowing users to learn blockchain transactions without real financial risks.
+- AI-Enhanced Expense Tracker with Budgeting Recommendations
+  - Tracks expenses automatically, categorizing transactions for a clear spending overview.
+  - Provides personalized budgeting recommendations based on spending habits and income.
+  - Suggests cost-cutting strategies, saving plans, and investment opportunities.
+  - Alerts users when they exceed their budget and offers AI-driven financial insights to help manage money efficiently.
 
 ### Demo
 [![Project Demo](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)
@@ -43,17 +64,19 @@ FINOVA(https://your-project-url.com)
 ## Technical Implementation
 
 ### Technologies Used
-- **Frontend**: React/HTML/CSS
-- **Backend**: Flask
-- **Database**: [Technologies]
-- **APIs**: [Technologies]
-- **DevOps**: [Technologies]
-- **Other Tools**: [Technologies]
+- **Frontend**: React/HTML/Tailwind-CSS/Typescript
+- **Backend**: Node.js
+- **Database**: MongoDB
+- **APIs**: Gemini-API, Binance-API, Coingecko-API
+- **DevOps**: N/A
+- **Other Tools**: git
 
 ### Key Features
-- AI Integrated Chatbot
-- Feature 2
-- Feature 3
+- AI-Powered Chatbot for Financial Insights & Support
+- User-Friendly Dashboard
+- Live Demo Trading in the Live Market
+- Ethereum Wallet Integration
+- AI-Enhanced Expense Tracker with Budgeting Recommendations
 
 ## Setup Instructions
 
