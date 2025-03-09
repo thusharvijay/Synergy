@@ -238,7 +238,7 @@ const Home = () => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
           >
-            <h3 className="text-2xl font-bold text-white mb-4">Portfolio Tracker</h3>
+            <h3 className="text-2xl font-bold text-white mb-4">Expense Tracker</h3>
             <p className="text-gray-300 mb-6">
               Track your crypto portfolio easily and manage your investments. All trades made through FINOVA will be automatically recorded in your portfolio.
             </p>
