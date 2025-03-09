@@ -81,15 +81,24 @@ FINOVA(https://your-project-url.com)
 ## Setup Instructions
 
 ### Prerequisites
-- Requirement 1
-- Requirement 2
-- Requirement 3
+- Node.js (v16+ recommended) - [Download Here](https://nodejs.org/en)
+- npm (Comes with Node.js) or yarn
+- Git - [DDownload Here](https://git-scm.com/)
 
 ### Installation 
+- Clone the Repository
 ```bash
-
+https://github.com/thusharvijay/Synergy.git
+cd finova
 ```
-
+- Install Dependencies
+```bash
+npm install
+```
+- Start the Development Server
+```bash
+npm run dev
+```
 ### Running the Project
 ```bash
 
