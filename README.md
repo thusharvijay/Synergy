@@ -8,7 +8,7 @@ The official template repository for Define 3.0
 
 #  FINOVA 
  
-![LOGO](https://github.com/thusharvijay/test/blob/main/Screenshot%202025-03-09%20075856.png)
+![LOGO](https://github.com/thusharvijay/test/blob/main/Recording2025-03-09080429-ezgif.com-video-to-gif-converter.gif)
 
 ### Team Information
 - **Team Name**:  Synergy 
