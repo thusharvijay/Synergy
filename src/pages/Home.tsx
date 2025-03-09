@@ -210,7 +210,7 @@ const Home = () => {
                 >
                   <span className="flex items-center justify-center text-lg font-semibold">
                     <Receipt className="mr-2 h-5 w-5" />
-                    Track Portfolio
+                    Expense Tracker 
                   </span>
                 </motion.button>
               </div>

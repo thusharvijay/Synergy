@@ -8,6 +8,9 @@ import ContactUs from './components/ContactUs';
 import NewsPage from './pages/NewsPage';
 import Chatbot from './components/Chatbot';
 import TutorialOverlay from './components/TutorialOverlay';
+import ManualExpenseEntry from './pages/ManualExpenseEntry';
+import BillUploadExpense from './pages/BillUploadExpense';
+import ExpenseList from './pages/ExpenseList';
 
 const queryClient = new QueryClient();
 
@@ -27,6 +30,9 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/news" element={<NewsPage />} />
+            <Route path="/expenses/manual" element={<ManualExpenseEntry />} />
+            <Route path="/expenses/upload" element={<BillUploadExpense />} />
+            <Route path="/expenses" element={<ExpenseList />} />
           </Routes>
           <Chatbot />
         </div>
