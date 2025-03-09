@@ -10,76 +10,91 @@ const NewsPage = () => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        // Replace with your actual API implementation
-        // For example, you might use:
-        // - Alpha Vantage News API
-        // - Financial Modeling Prep API
-        // - Polygon.io
-        // - MarketStack
+        // Using CryptoCompare News API (free tier)
+        const response = await fetch('https://min-api.cryptocompare.com/data/v2/news/?lang=EN');
+        const data = await response.json();
         
-        // const apiKey = 'your_api_key';
-        // const response = await fetch(`https://financialnewsapi.com/api/v1/news?apikey=${apiKey}`);
-        // const data = await response.json();
-        // setNews(data.articles || []);
-        
-        // Fallback dummy data
-        setTimeout(() => {
+        if (data.Data) {
+          const formattedNews = data.Data.map(item => ({
+            id: item.id,
+            title: item.title,
+            source: item.source,
+            date: new Date(item.published_on * 1000).toLocaleDateString(),
+            summary: item.body,
+            url: item.url,
+            imageUrl: item.imageurl
+          }));
+          setNews(formattedNews);
+        }
+      } catch (error) {
+        console.error('Error fetching news:', error);
+        // Fallback to CoinGecko API
+        try {
+          const response = await fetch('https://api.coingecko.com/api/v3/news');
+          const data = await response.json();
+          setNews(data);
+        } catch (secondError) {
+          console.error('Error fetching from backup source:', secondError);
+          // Final fallback to static data
           setNews([
             {
               id: 1,
-              title: 'Federal Reserve Announces New Interest Rate Policy',
-              source: 'Financial Times',
-              date: 'March 8, 2025',
-              summary: 'The Federal Reserve announced a significant shift in its interest rate policy today, aiming to address growing concerns about inflation while supporting economic growth.',
-              url: '#'
+              title: 'Bitcoin Surges Past Previous Resistance Levels',
+              source: 'CryptoNews',
+              date: new Date().toLocaleDateString(),
+              summary: 'Bitcoin has broken through key resistance levels, suggesting a potential bull run ahead.',
+              url: 'https://www.cryptonews.com/news/bitcoin-surge',
+              imageUrl: 'https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=500&q=80'
             },
             {
               id: 2,
-              title: 'Tech Stocks Rally as Quantum Computing Breakthrough Announced',
-              source: 'Bloomberg',
-              date: 'March 7, 2025',
-              summary: 'Major technology stocks saw significant gains following the announcement of a breakthrough in quantum computing that could revolutionize the industry.',
-              url: '#'
+              title: 'Ethereum Network Upgrade Announced',
+              source: 'CoinDesk',
+              date: new Date().toLocaleDateString(),
+              summary: 'The Ethereum network is preparing for its next major upgrade, promising improved scalability.',
+              url: 'https://www.coindesk.com/ethereum-upgrade',
+              imageUrl: 'https://images.unsplash.com/photo-1622630998477-20aa696ecb05?w=500&q=80'
             },
             {
               id: 3,
-              title: 'Global Markets Respond to New Trade Agreement',
-              source: 'CNBC',
-              date: 'March 6, 2025',
-              summary: 'Markets worldwide showed positive movement in response to a new international trade agreement aimed at reducing tariffs and promoting economic cooperation.',
-              url: '#'
+              title: 'DeFi Protocol Sets New Total Value Locked Record',
+              source: 'DeFi Daily',
+              date: new Date().toLocaleDateString(),
+              summary: 'A major DeFi protocol has achieved a new milestone in total value locked.',
+              url: 'https://www.defidaily.com/tvl-record',
+              imageUrl: 'https://images.unsplash.com/photo-1605792657660-596af9009e82?w=500&q=80'
             },
             {
               id: 4,
-              title: 'Cryptocurrency Adoption Reaches New Milestone',
-              source: 'CoinDesk',
-              date: 'March 5, 2025',
-              summary: 'A record number of institutional investors have added cryptocurrency to their portfolios, signaling growing mainstream acceptance of digital assets.',
-              url: '#'
+              title: 'New Cryptocurrency Exchange Launches With Zero Fees',
+              source: 'CoinTelegraph',
+              date: new Date().toLocaleDateString(),
+              summary: 'A new cryptocurrency exchange platform has launched with a zero-fee trading model.',
+              url: 'https://www.cointelegraph.com/zero-fee-exchange',
+              imageUrl: 'https://images.unsplash.com/photo-1634704784915-aacf363b021f?w=500&q=80'
             },
             {
               id: 5,
-              title: 'Sustainable Investment Funds Set New Record',
-              source: 'Reuters',
-              date: 'March 4, 2025',
-              summary: 'ESG-focused investment funds have reached an all-time high in total assets under management, reflecting increased investor interest in sustainable finance.',
-              url: '#'
+              title: 'Major Bank Adopts Blockchain Technology',
+              source: 'Bloomberg Crypto',
+              date: new Date().toLocaleDateString(),
+              summary: 'A leading financial institution announces integration of blockchain technology.',
+              url: 'https://www.bloomberg.com/crypto/bank-blockchain',
+              imageUrl: 'https://images.unsplash.com/photo-1639322537228-f710d846310a?w=500&q=80'
             },
             {
               id: 6,
-              title: 'Major Bank Announces Blockchain-Based Payment System',
-              source: 'Wall Street Journal',
-              date: 'March 3, 2025',
-              summary: 'One of the world\'s largest banks has unveiled a new payment system built on blockchain technology, promising faster and more secure transactions.',
-              url: '#'
+              title: 'NFT Market Shows Signs of Recovery',
+              source: 'NFT News',
+              date: new Date().toLocaleDateString(),
+              summary: 'The NFT market is showing positive indicators after a period of decline.',
+              url: 'https://www.nftnews.com/market-recovery',
+              imageUrl: 'https://images.unsplash.com/photo-1620321023374-d1a68fbc720d?w=500&q=80'
             }
           ]);
-          setLoading(false);
-        }, 1000);
-      } catch (error) {
-        console.error('Error fetching news:', error);
+        }
+      } finally {
         setLoading(false);
-        // Set some fallback news
       }
     };
 
@@ -107,14 +122,13 @@ const NewsPage = () => {
         </div>
       </nav>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      {/* Main Content */} <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400 mb-4">
-            Financial News
+            Cryptocurrency News
           </h1>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            Stay informed with the latest updates from global financial markets
+            Stay informed with the latest updates from the cryptocurrency market
           </p>
         </div>
 
@@ -131,8 +145,8 @@ const NewsPage = () => {
               >
                 <div className="h-48 bg-gray-700/50 relative overflow-hidden">
                   <img 
-                    src={`/api/placeholder/500/300?text=Financial+News`} 
-                    alt="News thumbnail" 
+                    src={item.imageUrl} 
+                    alt={item.title}
                     className="w-full h-full object-cover transition-transform hover:scale-105"
                   />
                 </div>
@@ -144,7 +158,7 @@ const NewsPage = () => {
                   <h3 className="text-xl font-semibold text-white mb-3">
                     {item.title}
                   </h3>
-                  <p className="text-gray-300 mb-4">
+                  <p className="text-gray-300 mb-4 line-clamp-3">
                     {item.summary}
                   </p>
                   <a 
