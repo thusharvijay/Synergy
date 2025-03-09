@@ -25,7 +25,7 @@ The official template repository for Define 3.0
 ## Project Details
 
 ### Overview
-Our project is an educational fintech platform designed to help users learn about financial markets through live demo trading. It features an expense tracker for financial management, Ethereum wallet integration for handling transactions, and an interactive design to enhance user engagement. The platform provides real-time market data, transaction details, and tools for hands-on financial learning.
+Our project is an educational fintech platform designed to help users learn about financial markets through live demo trading. The platform features an **AI-powered chatbot** that acts as a financial assistant, providing real-time market insights, answering queries, and guiding users through trading concepts. Additionally, it includes an expense tracker for financial management, Ethereum wallet integration for handling transactions, and a **real-time financial news aggregator** to keep users updated on market trends. With live market data, transaction details, and an interactive design, the platform enhances user engagement and offers hands-on financial learning experiences.
 
 ### Problem Statement
 Develop a basic prototype of a fintech website with an AI-powered chatbot that provides users with financial insights and customer support. The website should have a clean, user-friendly interface with a simple dashboard displaying sample financial data and a chatbot capable of handling basic FAQs related to fintech services. 
