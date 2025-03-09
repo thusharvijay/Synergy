@@ -3,6 +3,7 @@ import { format, parseISO } from 'date-fns';
 import { Receipt, Save, ArrowLeft, Trash2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { saveExpense, getExpenses, deleteExpense } from '../lib/localStorage';
+import AIBudgetAdvisor from '../components/AIBudgetAdvisor'; // Import the new component
 
 interface ExpenseFormData {
   amount: string;
@@ -34,6 +35,7 @@ const ManualExpenseEntry = () => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [expenses, setExpenses] = useState<any[]>([]);
+  const [showBudgetAdvisor, setShowBudgetAdvisor] = useState(true);
 
   useEffect(() => {
     // Load expenses when component mounts
@@ -207,41 +209,67 @@ const ManualExpenseEntry = () => {
             </form>
           </div>
 
-          <div className="bg-gray-800 rounded-xl p-8 shadow-lg border border-gray-700">
-            <h2 className="text-xl font-bold text-white mb-6">Recent Expenses</h2>
-            <div className="space-y-4">
-              {expenses.length === 0 ? (
-                <p className="text-gray-400 text-center py-8">No expenses recorded yet</p>
-              ) : (
-                expenses.map(expense => (
-                  <div
-                    key={expense.id}
-                    className="bg-gray-700/50 rounded-lg p-4 flex justify-between items-start"
-                  >
-                    <div>
-                      <div className="flex items-center mb-2">
-                        <span className="text-white font-medium">₹{expense.amount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}</span>
-                        <span className="mx-2 text-gray-500">•</span>
-                        <span className="text-gray-400">{format(parseISO(expense.date), 'dd MMM yyyy')}</span>
-                      </div>
-                      <p className="text-gray-300">{expense.description}</p>
-                      <div className="mt-2 flex items-center">
-                        <span className="px-2 py-1 rounded-full text-xs font-medium bg-gray-600 text-gray-300">
-                          {expense.category}
-                        </span>
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => handleDelete(expense.id)}
-                      className="text-gray-400 hover:text-red-400 transition-colors"
-                      title="Delete Expense"
+          <div>
+            <div className="bg-gray-800 rounded-xl p-8 shadow-lg border border-gray-700">
+              <h2 className="text-xl font-bold text-white mb-6">Recent Expenses</h2>
+              <div className="space-y-4">
+                {expenses.length === 0 ? (
+                  <p className="text-gray-400 text-center py-8">No expenses recorded yet</p>
+                ) : (
+                  expenses.slice(0, 5).map(expense => (
+                    <div
+                      key={expense.id}
+                      className="bg-gray-700/50 rounded-lg p-4 flex justify-between items-start"
                     >
-                      <Trash2 className="h-5 w-5" />
-                    </button>
-                  </div>
-                ))
+                      <div>
+                        <div className="flex items-center mb-2">
+                          <span className="text-white font-medium">₹{expense.amount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}</span>
+                          <span className="mx-2 text-gray-500">•</span>
+                          <span className="text-gray-400">{format(parseISO(expense.date), 'dd MMM yyyy')}</span>
+                        </div>
+                        <p className="text-gray-300">{expense.description}</p>
+                        <div className="mt-2 flex items-center">
+                          <span className="px-2 py-1 rounded-full text-xs font-medium bg-gray-600 text-gray-300">
+                            {expense.category}
+                          </span>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => handleDelete(expense.id)}
+                        className="text-gray-400 hover:text-red-400 transition-colors"
+                        title="Delete Expense"
+                      >
+                        <Trash2 className="h-5 w-5" />
+                      </button>
+                    </div>
+                  ))
+                )}
+              </div>
+              {expenses.length > 5 && (
+                <button 
+                  onClick={() => navigate('/expenses')}
+                  className="w-full mt-4 text-sm text-gray-400 hover:text-white flex items-center justify-center"
+                >
+                  View all expenses
+                  <ArrowRight className="w-4 h-4 ml-1" />
+                </button>
               )}
             </div>
+            
+            {/* Toggle for AI Budget Advisor */}
+            <div className="mt-4 flex justify-between items-center">
+              <button
+                onClick={() => setShowBudgetAdvisor(!showBudgetAdvisor)}
+                className="text-blue-400 hover:text-blue-300 text-sm flex items-center"
+              >
+                {showBudgetAdvisor ? 'Hide AI Budget Advisor' : 'Show AI Budget Advisor'}
+              </button>
+            </div>
+            
+            {/* AI Budget Advisor Component */}
+            {showBudgetAdvisor && (
+              <AIBudgetAdvisor />
+            )}
           </div>
         </div>
       </div>
